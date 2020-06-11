@@ -9,12 +9,6 @@ const {
   Temperature,
 } = require("./osgunits-gen.js");
 
-//const { Temperature } = require("./osgunits-main.js");
-module.exports.AllClasses_RunAllTests = function () {
-  TestSpeed_RunAllTests();
-  console.log("All test pass");
-};
-
 module.exports.TestSpeed_RunAllTests = function () {
   TestSpeed_NumberStringArgs();
   TestSpeed_StringArg();
