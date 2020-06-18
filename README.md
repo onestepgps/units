@@ -34,7 +34,7 @@ my_distance.display; // '10 mi'
 
 ### Set
 
-The set function should be used to change the internal value of a units object. This function will accept the same inputs as the constructer.
+The `set` function should be used to change the internal value of a units object. This function will accept the same inputs as the constructer.
 
 ```javascript
 my_distance.set(15, "km").display; // '15 km'
@@ -62,7 +62,7 @@ my_distance.display; // '2 mi'
 
 ### Add
 
-`add` will accept the same format of arguments as the `set` function. Objects of the same type but with different units can be added. Note that the function `displayRounded` is also used below, which returns the display property with the value rounded to the given number of decimal points
+The `add` function is used to add objects together, and will accept the same format of arguments as the `set` function. Objects of the same type but with different units can be added. Note that the function `displayRounded` is also used below, which returns the display property with the value rounded to the given number of decimal points
 
 ```javascript
 let my_speed = new Speed("2mph");
@@ -117,7 +117,7 @@ Note that 'empty' objects will not throw an error upon creation, but all other n
 
 ### Duration
 
-The string representation of `Duration` is slightly different than other types. `Duration` objects can be created in the following ways. Note that the largest duration unit given will be the setting of the `unit` property.
+The string representation of `Duration` is slightly different than other types. `Duration` objects can be created with a single string argument using the format shown in the examples below. Note that the largest duration unit given will be the setting of the `unit` property.
 
 ```javascript
 new Duration("2m").display; // '2m0s'
