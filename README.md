@@ -16,39 +16,118 @@ $ npm install @onestepgps/units
 
 Units objects can be created in a few different ways.
 
-```
-import {Distance} from "@onestepgps/units";
+```javascript
+import {Distance} from '@onestepgps/units';
 
-const number_string_arg_distance = new Distance(10, "mi"); //two arguments, value and unit
-const string_arg_distance = new Distance("10mi"); //single string argument
-const object_arg_distance = new Distance({value: 10, unit: "mi" ); //single object argument
+let my_distance = new Distance(10, 'mi'); //two arguments, value and unit
+let my_distance = new Distance('10mi'); //single string argument
+let my_distance = new Distance({value: 10, unit: 'mi' ); //single object argument
 ```
 
 All Units objects have the following three properties:
 
+```javascript
+my_distance.value; // 10
+my_distance.unit; // 'mi'
+my_distance.display; // '10 mi'
 ```
-my_distance.value // 10
-my_distance.unit // 'mi'
-my_distance.display // '10 mi'
+
+### Set
+
+The set function should be used to change the internal value of a units object. This function will accept the same inputs as the constructer.
+
+```javascript
+my_distance.set(15, "km").display; // '15 km'
+my_distance.set("120m").display; // '120 m'
+my_distance.set({ value: 25, unit: "mi" }).display; // '25 mi'
+```
+
+Aditionally, a single `Number` argument can be used to set the value property if the object has a valid unit.
+
+```javascript
+let my_distance = new Speed("10km");
+my_distance.set(33).display; // '33 km'
+```
+
+The value and unit can also be manually updated, but this is discouraged because the display property will not be automatically updated. Use the function updateDisplay to set the display to reflect manual changes to unit/value.
+
+```javascript
+let my_distance = new Speed("10 km");
+my_distance.value = 2;
+my_distance.unit = "mi";
+my_distance.display; // '10 km'
+my_distance.updateDisplay();
+my_distance.display; // '2 mi'
 ```
 
 ### Add
 
-```
-const ten_minutes = new Duration("2m")
-const eighty_seconds = new Duration(80, "s")
+`add` will accept the same format of arguments as the `set` function. Objects of the same type but with different units can be added. Note that the function `displayRounded` is also used below, which returns the display property with the value rounded to the given number of decimal points
 
-ten_minutes.add(eighty_seconds).display // 3m20s
-```
+```javascript
+let my_speed = new Speed("2mph");
 
-### Convert units
-
-```
-const my_distance = new Speed("10mph")
-my_distance.toUnit("km/h").display // 16.09341332355807 km/h
+my_speed.add(3).display; // '5mph'
+my_speed.add(5, "mph").display; // '7 mph'
+my_speed.add("1 km/h").displayRounded(3); // '2.621 mph'
+my_speed.add(new Speed(100, "m/s")).displayRounded(2); // '225.69 mph'
 ```
 
-## Available Units
+### Compare
+
+The function `cmp` is used to compare objects of the same type. Arguments can be in any formats which `set` accepts. Objects of different units can be compared. The `cmp` function will output -1 if it is less than the given value, 1 if greater, and 0 if equal.
+
+```javascript
+let my_pressure = new Pressure("10pa");
+my_pressure.cmp(20, 'pa'); // -1
+my_pressure.cmp(0.5 'kpa'); // 1
+```
+
+### Convert to unit
+
+A object can be converted to a different unit with the `toUnit` function, which takes a single unit string argument.
+
+```javascript
+let my_temp = new Temperature("75f");
+my_temp.toUnit("c").display; // '23.8889 c`
+```
+
+### Valid and Empty
+
+A type is 'valid' if it has a Number in its `value` prop, a supported unit in its `unit` prop, and a non-empty string value in its `display` prop. The `isValid` function will return a boolean indicating whether or not the object is 'valid'.
+
+```javascript
+let my_dist = new Distance("10mi");
+my_dist.isValid(); // true
+my_dist.value = null;
+my_dist.isValid(); // false
+```
+
+The `isEmpty` function is used to check if an object has undefined or null for all its properties. An 'empty' object is by definition not 'valid'.
+
+```javascript
+let my_empty_speed = new Speed({});
+my_empty_speed.isEmpty(); // true
+my_empty_speed.isValid(); // false
+```
+
+Note that 'empty' objects will not throw an error upon creation, but all other non 'valid' objects will throw an error on creation.
+
+## Unique types
+
+### Duration
+
+The string representation of `Duration` is slightly different than other types. `Duration` objects can be created in the following ways. Note that the largest duration unit given will be the setting of the `unit` property.
+
+```javascript
+new Duration("2m").display; // '2m0s'
+new Duration("1h2m60s").display; // '1h3m0s'
+new Duration("85s").display; // '85s'
+new Duration("1m85s").display; // '2m25s'
+new Duration("1h2s").display; // '1h0m2s'
+```
+
+## Available Types and Units
 
 Distance
 
