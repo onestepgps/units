@@ -120,11 +120,11 @@ Note that 'empty' objects will not throw an error upon creation, but all other n
 The string representation of `Duration` is slightly different than other types. `Duration` objects can be created with a single string argument using the format shown in the examples below. Note that the largest duration unit given will be the setting of the `unit` property.
 
 ```javascript
-new Duration("2m").display; // '2m0s'
-new Duration("1h2m60s").display; // '1h3m0s'
+new Duration("2m").display; // '2m 0s'
+new Duration("1h 2m 60s").display; // '1h 3m 0s'
 new Duration("85s").display; // '85s'
-new Duration("1m85s").display; // '2m25s'
-new Duration("1h2s").display; // '1h0m2s'
+new Duration("1m85s").display; // '2m 25s'
+new Duration("1h2s").display; // '1h 0m 2s'
 ```
 
 ## Available Types and Units
