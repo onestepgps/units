@@ -624,41 +624,41 @@ function TestDuration_NumberStringArgs() {
   const time_seconds = new Duration(135, "s");
   assert.strictEqual("135s", time_seconds.display);
   const time_minutes = new Duration(250, "m");
-  assert.strictEqual("250m0s", time_minutes.display);
+  assert.strictEqual("250m 0s", time_minutes.display);
   const time_minute_decimal = new Duration(10.5, "m");
-  assert.strictEqual("10m30s", time_minute_decimal.display);
+  assert.strictEqual("10m 30s", time_minute_decimal.display);
   const time_hours = new Duration(1.505, "h");
-  assert.strictEqual("1h30m18s", time_hours.display);
+  assert.strictEqual("1h 30m 18s", time_hours.display);
   const time_milliseconds = new Duration(500, "ms");
   assert.strictEqual("500ms", time_milliseconds.display);
   const negative_duration = new Duration(-10.5, "m");
   assert.strictEqual(-10.5, negative_duration.value);
   assert.strictEqual("m", negative_duration.unit);
-  assert.strictEqual("-10m30s", negative_duration.display);
+  assert.strictEqual("-10m 30s", negative_duration.display);
 
   console.log("Test #1 Success");
 }
 function TestDuration_StringArg() {
   console.log("#2 Testing Duration class - StringArg");
-  const duration_hours = new Duration("10h5m3s");
+  const duration_hours = new Duration("10h 5m 3s");
   assert.strictEqual("10.08", duration_hours.value.toFixed(2));
   assert.strictEqual("h", duration_hours.unit);
-  assert.strictEqual("10h5m3s", duration_hours.display);
+  assert.strictEqual("10h 5m 3s", duration_hours.display);
 
   const duration_minutes = new Duration("5m3s");
   assert.strictEqual(5.05, duration_minutes.value);
   assert.strictEqual("m", duration_minutes.unit);
-  assert.strictEqual("5m3s", duration_minutes.display);
+  assert.strictEqual("5m 3s", duration_minutes.display);
 
   const duration_minutes_no_seconds = new Duration("5m");
   assert.strictEqual(5, duration_minutes_no_seconds.value);
   assert.strictEqual("m", duration_minutes_no_seconds.unit);
-  assert.strictEqual("5m0s", duration_minutes_no_seconds.display);
+  assert.strictEqual("5m 0s", duration_minutes_no_seconds.display);
 
   const negative_duration = new Duration("-10m0s");
   assert.strictEqual(-10, negative_duration.value);
   assert.strictEqual("m", negative_duration.unit);
-  assert.strictEqual("-10m0s", negative_duration.display);
+  assert.strictEqual("-10m 0s", negative_duration.display);
 
   const negative_milliseconds = new Duration("-55.5ms");
   assert.strictEqual(-55.5, negative_milliseconds.value);
@@ -670,7 +670,7 @@ function TestDuration_StringArg() {
 function TestDuration_ObjectArg() {
   console.log("#3 Testing Duration class - ObjectArg");
   const five = new Duration({ value: 5, unit: "h" });
-  assert.strictEqual("5h0m0s", five.display);
+  assert.strictEqual("5h 0m 0s", five.display);
   console.log("Test #3 Success");
 }
 function TestDuration_EmptyArg() {
@@ -695,7 +695,7 @@ function TestDuration_ConvertToUnit() {
   const ninety = new Duration(90, "s");
   assert.strictEqual(90, ninety.value);
   assert.strictEqual(1.5, ninety.toUnit("m").value);
-  assert.strictEqual("1m30s", ninety.toUnit("m").display);
+  assert.strictEqual("1m 30s", ninety.toUnit("m").display);
   console.log("Test #6 Success");
 }
 function TestDuration_Add() {

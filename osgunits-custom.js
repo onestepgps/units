@@ -3,7 +3,7 @@
 
 // parseArguments is a private helper function for all osgunits which parses user input arguments
 const parseArguments = function (v, u) {
-  // handle single object parameter, e.g. set({'value': 10, 'unit': '<unit>', 'display ': '10 <unit>'})
+  // handle single object parameter, e.g. set({'value': 10, 'unit': 'mph', 'display ': '10 mph'})
   if (typeof v === "object" && typeof u === "undefined") {
     // if v is '{}' return '{}'
     if (Object.keys(v).length === 0 && v.constructor === Object) {
@@ -16,7 +16,7 @@ const parseArguments = function (v, u) {
       return { v: v.value, u: v.unit };
     } else {
       throw Error(
-        "Invalid object format. Expecting {'value': 10, 'unit': '<unit>', 'display ': '10 <unit>'}"
+        "Invalid object format. Expecting {'value': 10, 'unit': 'mph', 'display ': '10 mph'} or {'value': 10, 'unit': 'mph'}"
       );
     }
     // handle number with no unit, 'e.g. set(10)'
@@ -29,7 +29,7 @@ const parseArguments = function (v, u) {
       return { v: parseFloat(match_ret[1]), u: match_ret[2] };
     } else {
       throw Error(
-        "Invalid string format provided. Expecting '10<unit>' or '10 <unit>'"
+        "Invalid string format provided. Expecting '10mph' or '10 mph'"
       );
     }
     // handle number, string case, e.g. set(10, '<unit>')
@@ -87,7 +87,7 @@ module.exports.CustomDistanceFunctions = {
 
 // parseDurationArguments is a helper function for duration units that parses given arguments
 const parseDurationArguments = function (v, u) {
-  // handle single object parameter, e.g. set({'value': 10, 'unit': '<unit>', 'display ': '10 <unit>'})
+  // handle single object parameter, e.g. set({'value': 10, 'unit': 'm', 'display ': '10m'})
   if (typeof v === "object" && typeof u === "undefined") {
     // if v is '{}' return '{}'
     if (Object.keys(v).length === 0 && v.constructor === Object) {
@@ -100,7 +100,7 @@ const parseDurationArguments = function (v, u) {
       return { v: v.value, u: v.unit };
     } else {
       throw Error(
-        "Invalid object format. Expecting {'value': 10, 'unit': '<unit>', 'display ': '10 <unit>'}"
+        "Invalid Duration object format. Expecting {'value': 10, 'unit': 'm', 'display ': '10m'}"
       );
     }
     // handle number with no unit, 'e.g. set(10)'
@@ -154,16 +154,16 @@ const parseDurationArguments = function (v, u) {
   }
 };
 
-// updateDurationDisplay will display value/unit in readable duration format, e.g. 5h3m23s
+// updateDurationDisplay will display value/unit in readable duration format, e.g. 5h 3m 23s
 const updateDurationDisplay = function () {
   const sign = this.value < 0 ? "-" : "";
   const abs_value = Math.abs(this.value);
   if (this.unit === "h") {
-    this.display = `${sign}${Math.floor(abs_value)}h${Math.floor(
+    this.display = `${sign}${Math.floor(abs_value)}h ${Math.floor(
       (abs_value % 1) * 60
-    )}m${Math.round((((abs_value % 1) * 60) % 1) * 60)}s`;
+    )}m ${Math.round((((abs_value % 1) * 60) % 1) * 60)}s`;
   } else if (this.unit === "m") {
-    this.display = `${sign}${Math.floor(abs_value)}m${Math.round(
+    this.display = `${sign}${Math.floor(abs_value)}m ${Math.round(
       (abs_value % 1) * 60
     )}s`;
   } else if (this.unit === "s") {
