@@ -21,7 +21,7 @@ import {Distance} from '@onestepgps/units';
 
 let my_distance = new Distance(10, 'mi'); //two arguments, value and unit
 let my_distance = new Distance('10mi'); //single string argument
-let my_distance = new Distance({value: 10, unit: 'mi' ); //single object argument
+let my_distance = new Distance({value: 10, unit: 'mi'} ); //single object argument
 ```
 
 All Units objects have the following three properties:
