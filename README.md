@@ -134,6 +134,9 @@ Distance
 - mi - miles
 - km - kilometers
 - m - meters
+- cm - centimeters
+- mm - millimeters
+- in - inches
 
 Speed
 

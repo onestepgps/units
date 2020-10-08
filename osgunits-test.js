@@ -361,6 +361,21 @@ function TestDistance_NumberStringArgs() {
   assert.strictEqual("m", negative_value.unit);
   assert.strictEqual("-6.5 m", negative_value.display);
 
+  // test small distance units
+  const millimeters = new Distance(22, "mm");
+  assert.strictEqual(true, millimeters.isValid());
+  assert.strictEqual(false, millimeters.isEmpty());
+  assert.strictEqual(22, millimeters.value);
+  assert.strictEqual("mm", millimeters.unit);
+  assert.strictEqual("22 mm", millimeters.display);
+
+  const centimeters = new Distance(12, "cm");
+  assert.strictEqual(true, centimeters.isValid());
+  assert.strictEqual(false, centimeters.isEmpty());
+  assert.strictEqual(12, centimeters.value);
+  assert.strictEqual("cm", centimeters.unit);
+  assert.strictEqual("12 cm", centimeters.display);
+
   // test bad values
   assert.throws(() => {
     new Distance(Infinity, "mi");
@@ -413,6 +428,14 @@ function TestDistance_StringArg() {
   assert.strictEqual(-3.5, negative_value_string.value);
   assert.strictEqual("m", negative_value_string.unit);
   assert.strictEqual("-3.5 m", negative_value_string.display);
+
+  // test inches
+  const inches = new Distance("15 in")
+  assert.strictEqual(true, inches.isValid());
+  assert.strictEqual(false, inches.isEmpty());
+  assert.strictEqual(15, inches.value);
+  assert.strictEqual("in", inches.unit);
+  assert.strictEqual("15 in", inches.display);
 
   // test bad string input
   assert.throws(() => {
@@ -541,6 +564,14 @@ function TestDistance_ConvertToUnit() {
     distance_miles.toUnit("km").displayRounded(4)
   );
   assert.strictEqual("16093.4 m", distance_miles.toUnit("m").displayRounded(1));
+
+  // toUnit centimeters
+  const centimeters = new Distance("10cm");
+  assert.strictEqual("0.10 m", centimeters.toUnit("m").displayRounded(2));
+
+  // toUnit inches
+  const inches = new Distance("20 in");
+  assert.strictEqual("508.0 mm", inches.toUnit("mm").displayRounded(1));
 
   //toUnit errors
   assert.throws(() => {
