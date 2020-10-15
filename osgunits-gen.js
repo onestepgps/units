@@ -135,6 +135,11 @@ class Speed {
 		return speed_unit_conv_table[fromUnit][toUnit];
 	}
 
+	// round() returns a Speed object with the value rounded to the given number of decimal places 
+	round(decimal_places) {
+		return new Speed(this.displayRounded(decimal_places))
+	}
+
 }
 Speed.prototype = Object.assign(Speed.prototype, CustomSpeedFunctions);
 module.exports.Speed = Speed;
@@ -296,6 +301,11 @@ class Distance {
 		return distance_unit_conv_table[fromUnit][toUnit];
 	}
 
+	// round() returns a Distance object with the value rounded to the given number of decimal places 
+	round(decimal_places) {
+		return new Distance(this.displayRounded(decimal_places))
+	}
+
 }
 Distance.prototype = Object.assign(Distance.prototype, CustomDistanceFunctions);
 module.exports.Distance = Distance;
@@ -431,6 +441,11 @@ class Duration {
 	// used as a way to access conversion table without making table itself public
 	getConversionMultiplier(fromUnit, toUnit) {
 		return duration_unit_conv_table[fromUnit][toUnit];
+	}
+
+	// round() returns a Duration object with the value rounded to the given number of decimal places 
+	round(decimal_places) {
+		return new Duration(this.displayRounded(decimal_places))
 	}
 
 }
@@ -570,6 +585,11 @@ class Pressure {
 		return pressure_unit_conv_table[fromUnit][toUnit];
 	}
 
+	// round() returns a Pressure object with the value rounded to the given number of decimal places 
+	round(decimal_places) {
+		return new Pressure(this.displayRounded(decimal_places))
+	}
+
 }
 Pressure.prototype = Object.assign(Pressure.prototype, CustomPressureFunctions);
 module.exports.Pressure = Pressure;
@@ -689,6 +709,11 @@ class FuelRate {
 	// used as a way to access conversion table without making table itself public
 	getConversionMultiplier(fromUnit, toUnit) {
 		return fuelrate_unit_conv_table[fromUnit][toUnit];
+	}
+
+	// round() returns a FuelRate object with the value rounded to the given number of decimal places 
+	round(decimal_places) {
+		return new FuelRate(this.displayRounded(decimal_places))
 	}
 
 }
@@ -812,6 +837,11 @@ class Acceleration {
 		return acceleration_unit_conv_table[fromUnit][toUnit];
 	}
 
+	// round() returns a Acceleration object with the value rounded to the given number of decimal places 
+	round(decimal_places) {
+		return new Acceleration(this.displayRounded(decimal_places))
+	}
+
 }
 Acceleration.prototype = Object.assign(Acceleration.prototype, CustomAccelerationFunctions);
 module.exports.Acceleration = Acceleration;
@@ -925,6 +955,11 @@ class Temperature {
 	// used as a way to access conversion table without making table itself public
 	getConversionMultiplier(fromUnit, toUnit) {
 		return temperature_unit_conv_table[fromUnit][toUnit];
+	}
+
+	// round() returns a Temperature object with the value rounded to the given number of decimal places 
+	round(decimal_places) {
+		return new Temperature(this.displayRounded(decimal_places))
 	}
 
 }

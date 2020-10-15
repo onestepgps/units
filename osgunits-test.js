@@ -227,7 +227,7 @@ function TestSpeed_ConvertToUnit() {
   const speed_miles = new Speed("10mph");
   assert.strictEqual(
     "16.0934 km/h",
-    speed_miles.toUnit("km/h").displayRounded(4)
+    speed_miles.toUnit("km/h").round(4).display
   );
   assert.strictEqual("4.4704 m/s", speed_miles.toUnit("m/s").displayRounded(4));
   assert.strictEqual(
@@ -430,7 +430,7 @@ function TestDistance_StringArg() {
   assert.strictEqual("-3.5 m", negative_value_string.display);
 
   // test inches
-  const inches = new Distance("15 in")
+  const inches = new Distance("15 in");
   assert.strictEqual(true, inches.isValid());
   assert.strictEqual(false, inches.isEmpty());
   assert.strictEqual(15, inches.value);
@@ -937,7 +937,7 @@ function TestAcceleration_Add() {
   console.log("#7 Testing Acceleration class - Add");
   const g = new Acceleration(3, "g");
   const cmpsps = new Acceleration(100, "cm/s/s");
-  assert.strictEqual("3.10 g", g.add(cmpsps).displayRounded(2));
+  assert.strictEqual("3.1 g", g.add(cmpsps).round(1).display);
   console.log("Test #7 Success");
 }
 function TestAcceleration_Compare() {
@@ -1002,7 +1002,7 @@ function TestTemperature_ConvertToUnit() {
   const temp_f = new Temperature(90, "f");
   assert.strictEqual("32.22°C", temp_f.toUnit("c").displayRounded(2));
   const temp_c = new Temperature(-11, "c");
-  assert.strictEqual("12.2°F", temp_c.toUnit("f").displayRounded(1));
+  assert.strictEqual("12.2°F", temp_c.toUnit("f").round(1).display);
   console.log("Test #6 Success");
 }
 function TestTemperature_Add() {
