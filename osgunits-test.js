@@ -6,7 +6,7 @@ const {
   Pressure,
   FuelRate,
   Acceleration,
-  Temperature,
+  Temperature
 } = require("./osgunits-gen.js");
 
 module.exports.TestSpeed_RunAllTests = function () {
@@ -122,7 +122,7 @@ function TestSpeed_ObjectArg() {
   const three_args = new Speed({
     value: 10,
     unit: "mph",
-    "display ": "10 mph",
+    "display ": "10 mph"
   });
   assert.strictEqual(true, three_args.isValid());
   assert.strictEqual(false, three_args.isEmpty());
@@ -142,7 +142,7 @@ function TestSpeed_ObjectArg() {
   const first = new Speed({
     value: 25,
     unit: "km/h",
-    display: "25 km/h",
+    display: "25 km/h"
   });
 
   const second = new Speed(first);
@@ -161,7 +161,7 @@ function TestSpeed_ObjectArg() {
       value: 10,
       unit: "mph",
       display: "10 mph",
-      random_prop: 10,
+      random_prop: 10
     });
   }, Error);
 
@@ -170,14 +170,14 @@ function TestSpeed_ObjectArg() {
     new Speed({
       value: 10,
       unit: "asdfa",
-      display: "10 mph",
+      display: "10 mph"
     });
   }, Error);
   assert.throws(() => {
     new Speed({
       value: "10",
       unit: "cm/s",
-      "display ": "10 cm/s",
+      "display ": "10 cm/s"
     });
   }, Error);
 
@@ -459,7 +459,7 @@ function TestDistance_ObjectArg() {
   const three_args = new Distance({
     value: 10,
     unit: "mi",
-    display: "10 mi",
+    display: "10 mi"
   });
   assert.strictEqual(true, three_args.isValid());
   assert.strictEqual(false, three_args.isEmpty());
@@ -479,7 +479,7 @@ function TestDistance_ObjectArg() {
   const first = new Distance({
     value: 25,
     unit: "km",
-    display: "25 km",
+    display: "25 km"
   });
 
   const second = new Distance(first);
@@ -498,7 +498,7 @@ function TestDistance_ObjectArg() {
       value: 10,
       unit: "mi",
       display: "10 mi",
-      random_prop: 10,
+      random_prop: 10
     });
   }, Error);
 
@@ -507,14 +507,14 @@ function TestDistance_ObjectArg() {
     new Distance({
       value: 10,
       unit: "asdfa",
-      display: "10 mi",
+      display: "10 mi"
     });
   }, Error);
   assert.throws(() => {
     new Distance({
       value: "10",
       unit: "km",
-      "display ": "10 km",
+      "display ": "10 km"
     });
   }, Error);
 
@@ -962,19 +962,22 @@ module.exports.TestTemperature_RunAllTests = function () {
 function TestTemperature_NumberStringArgs() {
   console.log("#1 Testing Temperature class - NumberStringArgs");
   const five = new Temperature(5, "c");
-  assert.strictEqual("5 c", five.display);
+  assert.strictEqual("5°C", five.display);
   console.log("Test #1 Success");
 }
 function TestTemperature_StringArg() {
   console.log("#2 Testing Temperature class - StringArg");
-  const five = new Temperature("5f");
-  assert.strictEqual("5 f", five.display);
+  const five = new Temperature("5 °F");
+  assert.strictEqual("5°F", five.display);
+
+  const six_celsius = new Temperature("6 c");
+  assert.strictEqual("6°C", six_celsius.display);
   console.log("Test #2 Success");
 }
 function TestTemperature_ObjectArg() {
   console.log("#3 Testing Temperature class - ObjectArg");
   const five = new Temperature({ value: 5, unit: "c" });
-  assert.strictEqual("5 c", five.display);
+  assert.strictEqual("5°C", five.display);
   console.log("Test #3 Success");
 }
 function TestTemperature_EmptyArg() {
@@ -991,22 +994,22 @@ function TestTemperature_EmptyArg() {
 function TestTemperature_Set() {
   console.log("#5 Testing Temperature class - Set");
   const five = new Temperature(5, "c");
-  assert.strictEqual("10 f", five.set("10f").display);
+  assert.strictEqual("10°F", five.set("10f").display);
   console.log("Test #5 Success");
 }
 function TestTemperature_ConvertToUnit() {
   console.log("#6 Testing Temperature class - ConvertToUnit");
   const temp_f = new Temperature(90, "f");
-  assert.strictEqual("32.22 c", temp_f.toUnit("c").displayRounded(2));
+  assert.strictEqual("32.22°C", temp_f.toUnit("c").displayRounded(2));
   const temp_c = new Temperature(-11, "c");
-  assert.strictEqual("12.2 f", temp_c.toUnit("f").displayRounded(1));
+  assert.strictEqual("12.2°F", temp_c.toUnit("f").displayRounded(1));
   console.log("Test #6 Success");
 }
 function TestTemperature_Add() {
   console.log("#7 Testing Temperature class - Add");
   const three_c = new Temperature(3, "c");
   const thirty_f = new Temperature(30, "f");
-  assert.strictEqual("1.89 c", three_c.add(thirty_f).displayRounded(2));
+  assert.strictEqual("1.89°C", three_c.add(thirty_f).displayRounded(2));
   console.log("Test #7 Success");
 }
 function TestTemperature_Compare() {

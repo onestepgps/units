@@ -52,7 +52,7 @@ const toUnit = function (unit) {
   }
 };
 
-// updateDisplay will set 'display' string in format '<value> <unit>'\n"
+// updateDisplay will set 'display' string in format '<value> <unit>'"
 const updateDisplay = function () {
   this.display = `${this.value} ${this.unit}`;
 };
@@ -72,7 +72,7 @@ module.exports.CustomSpeedFunctions = {
   parseArguments: parseArguments,
   toUnit: toUnit,
   updateDisplay: updateDisplay,
-  displayRounded: displayRounded,
+  displayRounded: displayRounded
 };
 
 /******Custom Distance functions**********/
@@ -80,7 +80,7 @@ module.exports.CustomDistanceFunctions = {
   parseArguments: parseArguments,
   toUnit: toUnit,
   updateDisplay: updateDisplay,
-  displayRounded: displayRounded,
+  displayRounded: displayRounded
 };
 
 /******Custom Duration functions**********/
@@ -179,7 +179,7 @@ const updateDurationDisplay = function () {
 module.exports.CustomDurationFunctions = {
   toUnit: toUnit,
   updateDisplay: updateDurationDisplay,
-  parseArguments: parseDurationArguments,
+  parseArguments: parseDurationArguments
 };
 
 /******Custom Pressure functions**********/
@@ -187,7 +187,7 @@ module.exports.CustomPressureFunctions = {
   parseArguments: parseArguments,
   toUnit: toUnit,
   updateDisplay: updateDisplay,
-  displayRounded: displayRounded,
+  displayRounded: displayRounded
 };
 
 /******Custom FuelRate functions**********/
@@ -195,7 +195,7 @@ module.exports.CustomFuelRateFunctions = {
   parseArguments: parseArguments,
   toUnit: toUnit,
   updateDisplay: updateDisplay,
-  displayRounded: displayRounded,
+  displayRounded: displayRounded
 };
 
 /******Custom Acceleration functions**********/
@@ -203,7 +203,7 @@ module.exports.CustomAccelerationFunctions = {
   parseArguments: parseArguments,
   toUnit: toUnit,
   updateDisplay: updateDisplay,
-  displayRounded: displayRounded,
+  displayRounded: displayRounded
 };
 
 /******Custom Temperature functions**********/
@@ -229,9 +229,28 @@ const toUnitTemperature = function (unit) {
   return new this.constructor((this.value - 32) * (5 / 9), "c");
 };
 
+// updateTemperatureDisplay will set 'display' string in format '10°F'"
+const updateTemperatureDisplay = function () {
+  this.display = `${this.value}°${this.unit.toUpperCase()}`;
+};
+
+const parseTemperatureArguments = function (v, u) {
+  if (typeof v === "string" && typeof u === "undefined") {
+    return parseArguments(v.replace("°", "").toLowerCase(), u);
+  }
+  return parseArguments(v, u);
+};
+
+const displayRoundedTemperature = function (dec_places) {
+  const num = Number(
+    Math.round(this.value + "e" + dec_places) + "e-" + dec_places
+  ).toFixed(dec_places);
+  return `${num}°${this.unit.toUpperCase()}`;
+};
+
 module.exports.CustomTemperatureFunctions = {
   toUnit: toUnitTemperature,
-  updateDisplay: updateDisplay,
-  displayRounded: displayRounded,
-  parseArguments: parseArguments,
+  updateDisplay: updateTemperatureDisplay,
+  displayRounded: displayRoundedTemperature,
+  parseArguments: parseTemperatureArguments
 };
