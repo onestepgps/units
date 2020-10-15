@@ -17,11 +17,11 @@ $ npm install @onestepgps/units
 Units objects can be created in a few different ways.
 
 ```javascript
-import {Distance} from '@onestepgps/units';
+import { Distance } from "@onestepgps/units";
 
-let my_distance = new Distance(10, 'mi'); //two arguments, value and unit
-let my_distance = new Distance('10mi'); //single string argument
-let my_distance = new Distance({value: 10, unit: 'mi'} ); //single object argument
+let my_distance = new Distance(10, "mi"); //two arguments, value and unit
+let my_distance = new Distance("10mi"); //single string argument
+let my_distance = new Distance({ value: 10, unit: "mi" }); //single object argument
 ```
 
 All Units objects have the following three properties:
@@ -126,6 +126,10 @@ new Duration("85s").display; // '85s'
 new Duration("1m85s").display; // '2m 25s'
 new Duration("1h2s").display; // '1h 0m 2s'
 ```
+
+### Temperature
+
+Temperature units are displayed in a slightly different format compared to other types, e.g. `10°F` instead of `10 f`. The Temperature constructor can also accept strings of this format to create new temperature objects.
 
 ## Available Types and Units
 

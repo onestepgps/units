@@ -229,11 +229,12 @@ const toUnitTemperature = function (unit) {
   return new this.constructor((this.value - 32) * (5 / 9), "c");
 };
 
-// updateTemperatureDisplay will set 'display' string in format '10°F'"
+// updateTemperatureDisplay will set 'display' string in format '10°F'
 const updateTemperatureDisplay = function () {
   this.display = `${this.value}°${this.unit.toUpperCase()}`;
 };
 
+// parseTemperatureArguments handles parsing of unique format of temperature strings (uppercase unit and ° symbol)
 const parseTemperatureArguments = function (v, u) {
   if (typeof v === "string" && typeof u === "undefined") {
     return parseArguments(v.replace("°", "").toLowerCase(), u);
@@ -241,6 +242,7 @@ const parseTemperatureArguments = function (v, u) {
   return parseArguments(v, u);
 };
 
+// displayRoundedTemperature returns string rounded to given decimal places, in temperature format '10°F'
 const displayRoundedTemperature = function (dec_places) {
   const num = Number(
     Math.round(this.value + "e" + dec_places) + "e-" + dec_places
