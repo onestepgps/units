@@ -2,7 +2,7 @@
 
 Units is a Javascript unit conversion and utility library built to support the OneStepGPS tracking platform and API. This library can be used in both the browser and with Node.js.
 
-Currently this library supports the following types: Distance, Speed, Duration, Pressure, Fuel Rate, Acceleration, Temperature
+Currently this library supports the following types: Distance, Speed, Duration, Pressure, Fuel Rate, Acceleration, Temperature, Flow Rate, Volume
 
 ## Installation
 
@@ -177,3 +177,14 @@ Temperature
 
 - f - Fahrenheit
 - c - Celsius
+
+Flow Rate
+
+- ml/h - milliliters per hour
+
+Volume
+
+- ml - milliliters
+- l - liters
+- g - grams
+- floz - fluid ounces

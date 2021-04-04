@@ -6,6 +6,8 @@ const {
   FuelRate,
   Acceleration,
   Temperature,
+  FlowRate,
+  Volume,
 } = require("./osgunits-gen.js");
 
 module.exports = {
@@ -16,4 +18,6 @@ module.exports = {
   FuelRate,
   Acceleration,
   Temperature,
+  FlowRate,
+  Volume,
 };

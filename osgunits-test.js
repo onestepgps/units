@@ -6,10 +6,24 @@ const {
   Pressure,
   FuelRate,
   Acceleration,
-  Temperature
+  Temperature,
+  FlowRate,
+  Volume,
 } = require("./osgunits-gen.js");
 
-module.exports.TestSpeed_RunAllTests = function () {
+module.exports.TestUnits_RunAllTests = function () {
+  TestSpeed_RunAllTests()
+  TestDistance_RunAllTests()
+  TestDuration_RunAllTests()
+  TestPressure_RunAllTests()
+  TestFuelRate_RunAllTests()
+  TestAcceleration_RunAllTests()
+  TestTemperature_RunAllTests()
+  TestFlowRate_RunAllTests()
+  TestVolume_RunAllTests()
+}
+
+const TestSpeed_RunAllTests = function () {
   TestSpeed_NumberStringArgs();
   TestSpeed_StringArg();
   TestSpeed_ObjectArg();
@@ -323,7 +337,7 @@ function TestSpeed_Compare() {
   console.log("Test #8 Success");
 }
 
-module.exports.TestDistance_RunAllTests = function () {
+const TestDistance_RunAllTests = function () {
   TestDistance_NumberStringArgs();
   TestDistance_StringArg();
   TestDistance_ObjectArg();
@@ -639,7 +653,7 @@ function TestDistance_Compare() {
   console.log("Test #8 Success");
 }
 
-module.exports.TestDuration_RunAllTests = function () {
+const TestDuration_RunAllTests = function () {
   TestDuration_NumberStringArgs();
   TestDuration_StringArg();
   TestDuration_ObjectArg();
@@ -744,7 +758,7 @@ function TestDuration_Compare() {
   console.log("Test #8 Success");
 }
 
-module.exports.TestPressure_RunAllTests = function () {
+const TestPressure_RunAllTests = function () {
   TestPressure_NumberStringArgs();
   TestPressure_StringArg();
   TestPressure_ObjectArg();
@@ -811,7 +825,7 @@ function TestPressure_Compare() {
   console.log("Test #8 Success");
 }
 
-module.exports.TestFuelRate_RunAllTests = function () {
+const TestFuelRate_RunAllTests = function () {
   TestFuelRate_NumberStringArgs();
   TestFuelRate_StringArg();
   TestFuelRate_ObjectArg();
@@ -878,7 +892,7 @@ function TestFuelRate_Compare() {
   console.log("Test #8 Success");
 }
 
-module.exports.TestAcceleration_RunAllTests = function () {
+const TestAcceleration_RunAllTests = function () {
   TestAcceleration_NumberStringArgs();
   TestAcceleration_StringArg();
   TestAcceleration_ObjectArg();
@@ -948,7 +962,7 @@ function TestAcceleration_Compare() {
   console.log("Test #8 Success");
 }
 
-module.exports.TestTemperature_RunAllTests = function () {
+const TestTemperature_RunAllTests = function () {
   TestTemperature_NumberStringArgs();
   TestTemperature_StringArg();
   TestTemperature_ObjectArg();
@@ -1017,5 +1031,140 @@ function TestTemperature_Compare() {
   const five_point_five_f = new Temperature(5.5, "f");
   const one_c = new Temperature(1, "c");
   assert.strictEqual(-1, five_point_five_f.cmp(one_c));
+  console.log("Test #8 Success");
+}
+
+const TestFlowRate_RunAllTests = function () {
+  TestFlowRate_NumberStringArgs();
+  TestFlowRate_StringArg();
+  TestFlowRate_ObjectArg();
+  TestFlowRate_EmptyArg();
+  TestFlowRate_Set();
+  TestFlowRate_ConvertToUnit();
+  TestFlowRate_Add();
+  TestFlowRate_Compare();
+};
+
+function TestFlowRate_NumberStringArgs() {
+  console.log("#1 Testing FlowRate class - NumberStringArgs");
+  const five = new FlowRate(5, "ml/h");
+  assert.strictEqual("5 ml/h", five.display);
+  console.log("Test #1 Success");
+}
+function TestFlowRate_StringArg() {
+  console.log("#2 Testing FlowRate class - StringArg");
+  const five = new FlowRate("5ml/h");
+  assert.strictEqual("5 ml/h", five.display);
+  console.log("Test #2 Success");
+}
+function TestFlowRate_ObjectArg() {
+  console.log("#3 Testing FlowRate class - ObjectArg");
+  const five = new FlowRate({ value: 5, unit: "ml/h" });
+  assert.strictEqual("5 ml/h", five.display);
+  console.log("Test #3 Success");
+}
+function TestFlowRate_EmptyArg() {
+  console.log("#4 Testing FlowRate class - EmptyArg");
+  const empty = new FlowRate({});
+  assert.strictEqual(true, empty.isEmpty());
+  assert.strictEqual(false, empty.isValid());
+  assert.strictEqual(0, Object.keys(empty).length);
+  assert.strictEqual(undefined, empty.value);
+  assert.strictEqual(undefined, empty.unit);
+  assert.strictEqual(undefined, empty.display);
+  console.log("Test #4 Success");
+}
+function TestFlowRate_Set() {
+  console.log("#5 Testing FlowRate class - Set");
+  const a = new FlowRate(5, "ml/h");
+  assert.strictEqual("10 ml/h", a.set("10ml/h").display);
+  console.log("Test #5 Success");
+}
+function TestFlowRate_ConvertToUnit() {
+  console.log("#6 Testing FlowRate class - ConvertToUnit");
+  const a = new FlowRate(10, "ml/h");
+  assert.strictEqual("10.00 ml/h", a.toUnit("ml/h").displayRounded(2));
+  console.log("Test #6 Success");
+}
+function TestFlowRate_Add() {
+  console.log("#7 Testing FlowRate class - Add");
+  const a = new FlowRate(3, "ml/h");
+  const b = new FlowRate(30, "ml/h");
+  assert.strictEqual("33.00 ml/h", a.add(b).displayRounded(2));
+  console.log("Test #7 Success");
+}
+function TestFlowRate_Compare() {
+  console.log("#8 Testing FlowRate class - Compare");
+  const a = new FlowRate(5.5, "ml/h");
+  const b = new FlowRate(1, "ml/h");
+  assert.strictEqual(1, a.cmp(b));
+  console.log("Test #8 Success");
+}
+
+
+const TestVolume_RunAllTests = function () {
+  TestVolume_NumberStringArgs();
+  TestVolume_StringArg();
+  TestVolume_ObjectArg();
+  TestVolume_EmptyArg();
+  TestVolume_Set();
+  TestVolume_ConvertToUnit();
+  TestVolume_Add();
+  TestVolume_Compare();
+};
+
+function TestVolume_NumberStringArgs() {
+  console.log("#1 Testing Volume class - NumberStringArgs");
+  const five = new Volume(5, "ml");
+  assert.strictEqual("5 ml", five.display);
+  console.log("Test #1 Success");
+}
+function TestVolume_StringArg() {
+  console.log("#2 Testing Volume class - StringArg");
+  const five = new Volume("5l");
+  assert.strictEqual("5 l", five.display);
+  console.log("Test #2 Success");
+}
+function TestVolume_ObjectArg() {
+  console.log("#3 Testing Volume class - ObjectArg");
+  const five = new Volume({ value: 5, unit: "l" });
+  assert.strictEqual("5 l", five.display);
+  console.log("Test #3 Success");
+}
+function TestVolume_EmptyArg() {
+  console.log("#4 Testing Volume class - EmptyArg");
+  const empty = new Volume({});
+  assert.strictEqual(true, empty.isEmpty());
+  assert.strictEqual(false, empty.isValid());
+  assert.strictEqual(0, Object.keys(empty).length);
+  assert.strictEqual(undefined, empty.value);
+  assert.strictEqual(undefined, empty.unit);
+  assert.strictEqual(undefined, empty.display);
+  console.log("Test #4 Success");
+}
+function TestVolume_Set() {
+  console.log("#5 Testing Volume class - Set");
+  const a = new Volume(5, "floz");
+  assert.strictEqual("10 g", a.set("10g").display);
+  console.log("Test #5 Success");
+}
+function TestVolume_ConvertToUnit() {
+  console.log("#6 Testing Volume class - ConvertToUnit");
+  const a = new Volume(100, "floz");
+  assert.strictEqual("2.96 l", a.toUnit("l").displayRounded(2));
+  console.log("Test #6 Success");
+}
+function TestVolume_Add() {
+  console.log("#7 Testing Volume class - Add");
+  const a = new Volume(300, "ml");
+  const b = new Volume(1, "l");
+  assert.strictEqual("1300.00 ml", a.add(b).displayRounded(2));
+  console.log("Test #7 Success");
+}
+function TestVolume_Compare() {
+  console.log("#8 Testing Volume class - Compare");
+  const a = new Volume(5.5, "ml");
+  const b = new Volume(1, "g");
+  assert.strictEqual(-1, a.cmp(b));
   console.log("Test #8 Success");
 }

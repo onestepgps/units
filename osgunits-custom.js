@@ -256,3 +256,19 @@ module.exports.CustomTemperatureFunctions = {
   displayRounded: displayRoundedTemperature,
   parseArguments: parseTemperatureArguments
 };
+
+/******Custom FlowRate functions**********/
+module.exports.CustomFlowRateFunctions = {
+  toUnit: toUnit,
+  updateDisplay: updateDisplay,
+  displayRounded: displayRounded,
+  parseArguments: parseArguments,
+};
+
+/******Custom Volume functions**********/
+module.exports.CustomVolumeFunctions= {
+  toUnit: toUnit,
+  updateDisplay: updateDisplay,
+  displayRounded: displayRounded,
+  parseArguments: parseArguments,
+};
