@@ -186,5 +186,5 @@ Volume
 
 - ml - milliliters
 - l - liters
-- g - grams
+- g - gallons
 - floz - fluid ounces
