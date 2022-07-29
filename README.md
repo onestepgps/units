@@ -141,6 +141,7 @@ Distance
 - cm - centimeters
 - mm - millimeters
 - in - inches
+- ft - feet
 
 Speed
 
