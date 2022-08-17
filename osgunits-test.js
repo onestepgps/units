@@ -390,6 +390,13 @@ function TestDistance_NumberStringArgs() {
   assert.strictEqual("cm", centimeters.unit);
   assert.strictEqual("12 cm", centimeters.display);
 
+  const feet = new Distance(5, "ft");
+  assert.strictEqual(true, feet.isValid());
+  assert.strictEqual(false, feet.isEmpty());
+  assert.strictEqual(5, feet.value);
+  assert.strictEqual("ft", feet.unit);
+  assert.strictEqual("5 ft", feet.display);
+
   // test bad values
   assert.throws(() => {
     new Distance(Infinity, "mi");
@@ -586,6 +593,12 @@ function TestDistance_ConvertToUnit() {
   // toUnit inches
   const inches = new Distance("20 in");
   assert.strictEqual("508.0 mm", inches.toUnit("mm").displayRounded(1));
+
+  const feet = new Distance(5, "ft");
+  assert.strictEqual("60.0 in", feet.toUnit("in").displayRounded(1));
+
+  const meters = new Distance(5, "m");
+  assert.strictEqual("16.4 ft", meters.toUnit("ft").displayRounded(1));
 
   //toUnit errors
   assert.throws(() => {
