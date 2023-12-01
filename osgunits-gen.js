@@ -612,7 +612,7 @@ class Pressure {
 	}
 
 }
-Pressure.prototype = Object.assign(Pressure.prototype, CustomPressureFunctions);
+Object.assign(Pressure.prototype, CustomPressureFunctions);
 module.exports.Pressure = Pressure;
 
 const {CustomFuelRateFunctions} = require('./osgunits-custom.js');
