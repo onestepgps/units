@@ -141,7 +141,7 @@ class Speed {
 	}
 
 }
-Speed.prototype = Object.assign(Speed.prototype, CustomSpeedFunctions);
+Object.assign(Speed.prototype, CustomSpeedFunctions);
 module.exports.Speed = Speed;
 
 const {CustomDistanceFunctions} = require('./osgunits-custom.js');
@@ -324,7 +324,7 @@ class Distance {
 	}
 
 }
-Distance.prototype = Object.assign(Distance.prototype, CustomDistanceFunctions);
+Object.assign(Distance.prototype, CustomDistanceFunctions);
 module.exports.Distance = Distance;
 
 const {CustomDurationFunctions} = require('./osgunits-custom.js');
@@ -468,7 +468,7 @@ class Duration {
 	}
 
 }
-Duration.prototype = Object.assign(Duration.prototype, CustomDurationFunctions);
+Object.assign(Duration.prototype, CustomDurationFunctions);
 module.exports.Duration = Duration;
 
 const {CustomPressureFunctions} = require('./osgunits-custom.js');
@@ -612,7 +612,7 @@ class Pressure {
 	}
 
 }
-Pressure.prototype = Object.assign(Pressure.prototype, CustomPressureFunctions);
+Object.assign(Pressure.prototype, CustomPressureFunctions);
 module.exports.Pressure = Pressure;
 
 const {CustomFuelRateFunctions} = require('./osgunits-custom.js');
@@ -740,7 +740,7 @@ class FuelRate {
 	}
 
 }
-FuelRate.prototype = Object.assign(FuelRate.prototype, CustomFuelRateFunctions);
+Object.assign(FuelRate.prototype, CustomFuelRateFunctions);
 module.exports.FuelRate = FuelRate;
 
 const {CustomFlowRateFunctions} = require('./osgunits-custom.js');
@@ -863,7 +863,7 @@ class FlowRate {
 	}
 
 }
-FlowRate.prototype = Object.assign(FlowRate.prototype, CustomFlowRateFunctions);
+Object.assign(FlowRate.prototype, CustomFlowRateFunctions);
 module.exports.FlowRate = FlowRate;
 
 const {CustomAccelerationFunctions} = require('./osgunits-custom.js');
@@ -991,7 +991,7 @@ class Acceleration {
 	}
 
 }
-Acceleration.prototype = Object.assign(Acceleration.prototype, CustomAccelerationFunctions);
+Object.assign(Acceleration.prototype, CustomAccelerationFunctions);
 module.exports.Acceleration = Acceleration;
 
 const {CustomTemperatureFunctions} = require('./osgunits-custom.js');
@@ -1113,7 +1113,7 @@ class Temperature {
 	}
 
 }
-Temperature.prototype = Object.assign(Temperature.prototype, CustomTemperatureFunctions);
+Object.assign(Temperature.prototype, CustomTemperatureFunctions);
 module.exports.Temperature = Temperature;
 
 const {CustomVolumeFunctions} = require('./osgunits-custom.js');
@@ -1257,6 +1257,6 @@ class Volume {
 	}
 
 }
-Volume.prototype = Object.assign(Volume.prototype, CustomVolumeFunctions);
+Object.assign(Volume.prototype, CustomVolumeFunctions);
 module.exports.Volume = Volume;
 
