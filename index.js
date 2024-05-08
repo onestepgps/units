@@ -8,6 +8,7 @@ const {
   Temperature,
   FlowRate,
   Volume,
+  EVConsumption,
 } = require("./osgunits-gen.js");
 
 module.exports = {
@@ -20,4 +21,5 @@ module.exports = {
   Temperature,
   FlowRate,
   Volume,
+  EVConsumption,
 };

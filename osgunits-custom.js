@@ -272,3 +272,11 @@ module.exports.CustomVolumeFunctions= {
   displayRounded: displayRounded,
   parseArguments: parseArguments,
 };
+
+/******Custom EVConsumption functions**********/
+module.exports.CustomEVConsumptionFunctions= {
+  toUnit: toUnit,
+  updateDisplay: updateDisplay,
+  displayRounded: displayRounded,
+  parseArguments: parseArguments,
+};
