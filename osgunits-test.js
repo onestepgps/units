@@ -21,6 +21,7 @@ module.exports.TestUnits_RunAllTests = function () {
   TestTemperature_RunAllTests()
   TestFlowRate_RunAllTests()
   TestVolume_RunAllTests()
+  TestEVConsumption_RunAllTests()
 }
 
 const TestSpeed_RunAllTests = function () {
@@ -1180,4 +1181,23 @@ function TestVolume_Compare() {
   const b = new Volume(1, "g");
   assert.strictEqual(-1, a.cmp(b));
   console.log("Test #8 Success");
+}
+
+const TestEVConsumption_RunAllTests = function () {
+  TestEVConsumption_NumberStringArgs();
+  // TestVolume_StringArg();
+  // TestVolume_ObjectArg();
+  // TestVolume_EmptyArg();
+  // TestVolume_Set();
+  // TestVolume_ConvertToUnit();
+  // TestVolume_Add();
+  // TestVolume_Compare();
+};
+
+function TestEVConsumption_NumberStringArgs() {
+  console.log("#1 Testing EVConsumption class - NumberStringArgs");
+  const five = new EVConsumption(100, "wh/mi");
+  assert.strictEqual("100 wh/mi", five.display);
+  console.log("Test #1 Success");
+
 }

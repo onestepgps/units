@@ -743,6 +743,150 @@ class FuelRate {
 Object.assign(FuelRate.prototype, CustomFuelRateFunctions);
 module.exports.FuelRate = FuelRate;
 
+const {CustomEVConsumptionFunctions} = require('./osgunits-custom.js');
+
+const evconsumption_unit_conv_table = {
+	'wh/km': {
+		'wh/km' : 1, // wh/km -> wh/km
+		'wh/mi' : 1.609344, // wh/km -> wh/mi
+		'kwh/100km' : 0.1, // wh/km -> kwh/100km
+		'kwh/100mi' : 0.1609344, // wh/km -> kwh/100mi
+	},
+	'wh/mi': {
+		'wh/km' : 0.621371192237334, // wh/mi -> wh/km
+		'wh/mi' : 1, // wh/mi -> wh/mi
+		'kwh/100km' : 0.0621371192237334, // wh/mi -> kwh/100km
+		'kwh/100mi' : 0.1, // wh/mi -> kwh/100mi
+	},
+	'kwh/100km': {
+		'wh/km' : 10, // kwh/100km -> wh/km
+		'wh/mi' : 16.09344, // kwh/100km -> wh/mi
+		'kwh/100km' : 1, // kwh/100km -> kwh/100km
+		'kwh/100mi' : 1.609344, // kwh/100km -> kwh/100mi
+	},
+	'kwh/100mi': {
+		'wh/km' : 6.2137119223733395, // kwh/100mi -> wh/km
+		'wh/mi' : 10, // kwh/100mi -> wh/mi
+		'kwh/100km' : 0.621371192237334, // kwh/100mi -> kwh/100km
+		'kwh/100mi' : 1, // kwh/100mi -> kwh/100mi
+	},
+};
+
+class EVConsumption {
+	constructor(v, u) {
+		this.set(v, u);
+	}
+
+	// set will set value and unit to provided parameters
+	// format can be set({'value': 10, 'unit': '<unit>', 'display': '10 <unit>'}), set('10 <unit>'), set(10, '<unit>'), and set(10)
+	set(v, u) {
+		const parsedArgs = this.parseArguments(v, u);
+		// handles empty values, if parsedArgs is {}, set to this to {}
+		if (
+			Object.keys(parsedArgs).length === 0 &&
+			parsedArgs.constructor === Object
+		) {
+			delete this.value;
+			delete this.unit;
+			delete this.display;
+			return this;
+		}
+
+		// handles set(20), value without unit. Uses current unit if it exists, otherwise error is thrown
+		if (typeof parsedArgs.u === 'undefined') {
+			if (typeof this.unit !== 'undefined') {
+				parsedArgs.u = this.unit;
+			} else {
+				throw Error('EVConsumption has no set unit or unit argument');
+			}
+		}
+
+		this.value =
+			typeof parsedArgs.v === 'number' && !Number.isNaN(parsedArgs.v)
+				? parsedArgs.v
+				: null;
+		this.unit =
+			typeof parsedArgs.u === 'string' && parsedArgs.u in evconsumption_unit_conv_table
+				? parsedArgs.u
+				: null;
+		this.updateDisplay();
+
+		if (!this.isValid() && !this.isEmpty()) {
+			throw Error('Invalid value or unit provided');
+		}
+		return this
+	}
+
+	// add will return a new EVConsumption with the results of the addition between the given EVConsumption argument and this. The original EVConsumption will be unmodified
+	// the provided EVConsumption argument will be converted to this.unit so that EVConsumption of different units can be added
+	// can receive four possible formats that are supported by the set function
+	add(v, u) {
+		const add_evconsumption =
+			typeof v === 'number' && typeof u === 'undefined'
+				? new EVConsumption(v, this.unit)
+				: new EVConsumption(v, u).toUnit(this.unit);
+		if (this.isValid() && add_evconsumption.isValid()) {
+			return new EVConsumption(this.value + add_evconsumption.value, this.unit);
+		} else {
+			throw Error('Both evconsumptions must be valid to use add()');
+		}
+	}
+
+	// Cmp returns -1 for less than, 1 for greater than, 0 for equal.
+	cmp(v, u) {
+		const cmp_evconsumption =
+			typeof v === 'number' && typeof u === 'undefined'
+				? new EVConsumption(v, this.unit)
+				: new EVConsumption(v, u).toUnit(this.unit);
+		if (this.isValid() && cmp_evconsumption.isValid()) {
+			if (this.value < cmp_evconsumption.value) {
+				return -1;
+			}
+			if (this.value > cmp_evconsumption.value) {
+				return 1;
+			}
+			return 0;
+		} else {
+			throw Error('Both evconsumptions must be valid to use cmp()');
+		}
+	}
+
+	// isValid returns true if the value is a Number, the value is finite, and the unit is valid
+	isValid() {
+		return (
+			typeof this.value === 'number' &&
+			Number.isFinite(this.value) &&
+			this.unit in evconsumption_unit_conv_table &&
+			typeof this.display === 'string' &&
+			this.display !== ''
+		);
+	}
+
+	// isEmpty returns true if value, unit, and display are null
+	isEmpty() {
+		return this.value == null && this.unit == null && this.display == null;
+	}
+
+	// isValidUnit checks if unit is a unit present in the conversion table
+	isValidUnit(unit) {
+		return unit in evconsumption_unit_conv_table
+	}
+
+	// getConversionMultiplier returns conversion multiplier for given units
+	// used as a way to access conversion table without making table itself public
+	getConversionMultiplier(fromUnit, toUnit) {
+		return evconsumption_unit_conv_table[fromUnit][toUnit];
+	}
+
+	// round() returns a EVConsumption object with the value rounded to the given number of decimal places 
+	round(decimal_places) {
+		return new EVConsumption(this.displayRounded(decimal_places))
+	}
+
+}
+Object.assign(EVConsumption.prototype, CustomEVConsumptionFunctions);
+module.exports.EVConsumption = EVConsumption;
+
 const {CustomFlowRateFunctions} = require('./osgunits-custom.js');
 
 const flowrate_unit_conv_table = {
