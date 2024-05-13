@@ -9,6 +9,7 @@ const {
   Temperature,
   FlowRate,
   Volume,
+  EVConsumption,
 } = require("./osgunits-gen.js");
 
 module.exports.TestUnits_RunAllTests = function () {
